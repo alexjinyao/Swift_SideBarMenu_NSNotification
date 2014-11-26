@@ -15,7 +15,9 @@
 		3CB59CC81A24FCC200161B54 /* ContinerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB59CC71A24FCC200161B54 /* ContinerViewController.swift */; };
 		3CB59CCA1A24FE6400161B54 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB59CC91A24FE6400161B54 /* SideMenuTableViewController.swift */; };
 		3CB59CCC1A24FF3300161B54 /* GreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB59CCB1A24FF3300161B54 /* GreenViewController.swift */; };
-		3CB59CCE1A25039800161B54 /* GreenNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB59CCD1A25039800161B54 /* GreenNavViewController.swift */; };
+		3CB8498E1A2563FA002E52F0 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8498D1A2563FA002E52F0 /* TableViewController.swift */; };
+		3CB849901A256A6F002E52F0 /* DarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB8498F1A256A6F002E52F0 /* DarkViewController.swift */; };
+		3CB849921A256BD0002E52F0 /* YellowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB849911A256BD0002E52F0 /* YellowViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +43,9 @@
 		3CB59CC71A24FCC200161B54 /* ContinerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinerViewController.swift; sourceTree = "<group>"; };
 		3CB59CC91A24FE6400161B54 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		3CB59CCB1A24FF3300161B54 /* GreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenViewController.swift; sourceTree = "<group>"; };
-		3CB59CCD1A25039800161B54 /* GreenNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenNavViewController.swift; sourceTree = "<group>"; };
+		3CB8498D1A2563FA002E52F0 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		3CB8498F1A256A6F002E52F0 /* DarkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkViewController.swift; sourceTree = "<group>"; };
+		3CB849911A256BD0002E52F0 /* YellowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YellowViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +89,11 @@
 			children = (
 				3CB59CA71A24FC8C00161B54 /* AppDelegate.swift */,
 				3CB59CAB1A24FC8C00161B54 /* Main.storyboard */,
+				3CB8498F1A256A6F002E52F0 /* DarkViewController.swift */,
+				3CB849911A256BD0002E52F0 /* YellowViewController.swift */,
+				3CB8498D1A2563FA002E52F0 /* TableViewController.swift */,
 				3CB59CC71A24FCC200161B54 /* ContinerViewController.swift */,
 				3CB59CC91A24FE6400161B54 /* SideMenuTableViewController.swift */,
-				3CB59CCD1A25039800161B54 /* GreenNavViewController.swift */,
 				3CB59CCB1A24FF3300161B54 /* GreenViewController.swift */,
 				3CB59CAE1A24FC8C00161B54 /* Images.xcassets */,
 				3CB59CB01A24FC8C00161B54 /* LaunchScreen.xib */,
@@ -221,11 +227,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CB849921A256BD0002E52F0 /* YellowViewController.swift in Sources */,
+				3CB849901A256A6F002E52F0 /* DarkViewController.swift in Sources */,
 				3CB59CCC1A24FF3300161B54 /* GreenViewController.swift in Sources */,
+				3CB8498E1A2563FA002E52F0 /* TableViewController.swift in Sources */,
 				3CB59CC81A24FCC200161B54 /* ContinerViewController.swift in Sources */,
 				3CB59CCA1A24FE6400161B54 /* SideMenuTableViewController.swift in Sources */,
 				3CB59CA81A24FC8C00161B54 /* AppDelegate.swift in Sources */,
-				3CB59CCE1A25039800161B54 /* GreenNavViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +427,7 @@
 				3CB59CC31A24FC8C00161B54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3CB59CC41A24FC8C00161B54 /* Build configuration list for PBXNativeTarget "Swift_SideBarMenu_NSNotificationTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +436,7 @@
 				3CB59CC61A24FC8C00161B54 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

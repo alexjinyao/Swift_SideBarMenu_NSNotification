@@ -1,5 +1,5 @@
 //
-//  GreenNavViewController.swift
+//  DarkViewController.swift
 //  Swift_SideBarMenu_NSNotification
 //
 //  Created by Jin on 11/25/14.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GreenNavViewController: UINavigationController {
+class DarkViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +16,13 @@ class GreenNavViewController: UINavigationController {
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func menuButtonTouched(sender: AnyObject) {
+        // when the menu button touched
+        // send the menu button touched notification to the notification center
+        var notification:NSNotification = NSNotification(name: "menuButtonTouched", object: self)
+        NSNotificationCenter.defaultCenter().postNotification(notification)
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

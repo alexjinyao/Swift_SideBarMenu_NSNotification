@@ -25,19 +25,17 @@ class ContinerViewController: UIViewController {
     var swipRightGesture:UISwipeGestureRecognizer!
     var swipLeftGesture:UISwipeGestureRecognizer!
     
-    // the blur effect view when sidebar menu is visible add it to the content view
-    var blurEffect:UIVisualEffectView!
-    
     func initViewControllers(){
         let storyBoard:UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let greenController:UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("GreenNa") as UINavigationController
+        let navController:UINavigationController = storyBoard.instantiateViewControllerWithIdentifier("TableNa") as UINavigationController
         
-        viewControllers = [greenController]
+        let tabController:UITabBarController = storyBoard.instantiateViewControllerWithIdentifier("TabBarNa") as UITabBarController
+        
+        viewControllers = [ tabController, navController, greenController]
         
     }
     
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,7 +57,8 @@ class ContinerViewController: UIViewController {
         self.initViewControllers()
         
         // init the current view as the first view in the viewcontrollers array
-        var visibleViewController:UINavigationController = viewControllers[0] as UINavigationController
+        // cause we have different type of VCs so define the visibleViewController as uiviewcontroller
+        var visibleViewController:UIViewController = viewControllers[indexOfVisibleController] as UIViewController
         
         visibleViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
         
@@ -68,9 +67,10 @@ class ContinerViewController: UIViewController {
         self.view.addSubview(visibleViewController.view)
         
         
-        // add self as teh recever of menuButtonTouched notification
+        // add self as teh recever of menuButtonTouched notification and didSelectRow notification
         var center:NSNotificationCenter = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "handleMenuButtonTouched", name: "menuButtonTouched", object: nil)
+        center.addObserver(self, selector: "handleDidSelectRow:", name: "didSelectRow", object: nil)
         
         // init and add the swip right gesture
         swipRightGesture = UISwipeGestureRecognizer()
@@ -85,10 +85,50 @@ class ContinerViewController: UIViewController {
         swipLeftGesture.numberOfTouchesRequired = 1
         swipLeftGesture.addTarget(self, action: "handleSwipeGesture:")
         self.view.addGestureRecognizer(swipLeftGesture)
+
+    }
+    
+    func handleDidSelectRow(paramNotification:NSNotification){
+        let temp:[NSObject: AnyObject] = paramNotification.userInfo!
+        let incommingVCIndex:Int = temp["selectRow"] as Int
+        replaceVisibleViewControllerWithViewControllerAtIndex(incommingVCIndex)
         
-        // init the blur effect view
-        var blur:UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.Light)
-        blurEffect = UIVisualEffectView(effect: blur)
+    }
+    
+    func replaceVisibleViewControllerWithViewControllerAtIndex(index:Int){
+        // if select row equals to current visible viewcontroller
+        // we call handleMenuTouched func to move it back
+        println("The incomming vc's index is \(index)")
+        if(index == indexOfVisibleController){
+            handleMenuButtonTouched()
+            return
+        }
+        
+        // else we move the incomming viewcontroller in and move the current viewcontroller out
+        var incommingViewController:UIViewController = viewControllers[index] as UIViewController
+        incommingViewController.view.frame = CGRectMake(self.view.bounds.size.width, 0, self.view.frame.size.width, self.view.frame.size.height)
+        
+        var outgoingViewController:UIViewController = viewControllers[indexOfVisibleController] as UIViewController
+        
+        outgoingViewController.willMoveToParentViewController(nil)
+        
+        self.addChildViewController(incommingViewController)
+        
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+        
+        self.transitionFromViewController(outgoingViewController, toViewController: incommingViewController, duration: 0.5, options: nil, animations: { () -> Void in
+            outgoingViewController.view.frame = CGRectMake(self.view.bounds.size.width, 0, self.view.bounds.size.width, self.view.bounds.size.height)
+        }) { (Bool) -> Void in
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                outgoingViewController.view.removeFromSuperview()
+                self.view.addSubview(incommingViewController.view)
+                incommingViewController.view.frame = self.view.bounds
+                UIApplication.sharedApplication().endIgnoringInteractionEvents()
+                
+                self.isMenuVisible = false
+                self.indexOfVisibleController = index
+            })
+        }
     }
     
     func handleSwipeGesture(gesture:UISwipeGestureRecognizer){
@@ -118,12 +158,8 @@ class ContinerViewController: UIViewController {
                 visibleViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
                 
             })
-            
-            visibleViewController.view.addSubview(self.blurEffect)
             // after hidden the menu bar we change isMenuVisible to false
             isMenuVisible = !isMenuVisible
-            
-            
             
         }else{
             // if currently the menu bar is hidden, then we move the visibleViewController to right to show the sidebar menu
@@ -132,14 +168,8 @@ class ContinerViewController: UIViewController {
                 
             })
             
-            self.blurEffect.removeFromSuperview()
             // after show the menu bar on screen we change the value to true
             isMenuVisible = !isMenuVisible
-            
-            
-            // if side menu is on screen add the blur effect to the content view, since it's lost the focuse
-            
-        
         }
     }
 
